@@ -45,9 +45,11 @@ namespace IntelOrca.TTQ
 			lblClosePointsDesc.Visible = true;
 			lblSongPointsDesc.Visible = true;
 
+			RefreshForRound();
+
+			// Automation
 			mAutomated = true;
 			chkAutomated.Checked = mAutomated;
-
 			//if (automated)
 			//	Announcer.PlaySound("intro");
 		}
@@ -106,6 +108,11 @@ namespace IntelOrca.TTQ
 
 		private void btnPlay_Click(object sender, EventArgs e)
 		{
+			if (spnRound.Value <= 0)
+				return;
+			if (spnTrack.Value <= 0)
+				return;
+
 			Round round = mQuiz.Rounds[Convert.ToInt32(spnRound.Value) - 1];
 			Track track = round.Tracks[Convert.ToInt32(spnTrack.Value) - 1];
 			mSkipsecs = track.SkipSecs;
@@ -173,45 +180,12 @@ namespace IntelOrca.TTQ
 
 		private void spnRound_ValueChanged(object sender, EventArgs e)
 		{
-			// Stop Media Player
-			ttqPlayer.Stop();
-
-			// Open Round
-			Round round = mQuiz.Rounds[Convert.ToInt32(spnRound.Value) - 1];
-
-			// Set Round Name & Play Mode
-			lblRoundName.Text = round.Name;
-			cmbPlayMode.SelectedIndex = round.PlayMode;
-
-			//Set Number of Tracks and start with Track 1
-			spnTrack.Maximum = round.Tracks.Count;
-			spnTrack.Minimum = 1;
-			spnTrack.Value = 1;
-			spnTrack_ValueChanged(sender, e);
+			RefreshForRound();
 		}
 
 		private void spnTrack_ValueChanged(object sender, EventArgs e)
 		{
-			// Stop Media Player
-			ttqPlayer.Stop();
-
-			Round round = mQuiz.Rounds[Convert.ToInt32(spnRound.Value) - 1];
-			// Open Track
-
-			Track track = round.Tracks[Convert.ToInt32(spnTrack.Value) - 1];
-			lblAnswer.Text = track.Title;
-			lblClose.Text = track.CloseAnswer;
-			lblSong.Text = track.Song;
-
-			// Show whether there is a close answer or Song title for the song
-			if (!track.HasCloseAnswer)
-				lblClosePointsDesc.Visible = false;
-			else if (lblAnswerPointsDesc.Visible == true)
-				lblClosePointsDesc.Visible = true;
-			if (!track.HasSong)
-				lblSongPointsDesc.Visible = false;
-			else if (lblAnswerPointsDesc.Visible == true)
-				lblSongPointsDesc.Visible = true;
+			RefreshForTrack();
 		}
 
 		private void tmrMusicCheck_Tick(object sender, EventArgs e)
@@ -282,6 +256,61 @@ namespace IntelOrca.TTQ
 		private void chkAutomated_CheckedChanged(object sender, EventArgs e)
 		{
 			mAutomated = chkAutomated.Checked;
+		}
+
+		private void RefreshForRound()
+		{
+			Round round = mQuiz.Rounds[Convert.ToInt32(spnRound.Value) - 1];
+			RefreshForRound(round);
+		}
+
+		private void RefreshForRound(Round round)
+		{
+			// Set Round Name & Play Mode
+			lblRoundName.Text = round.Name;
+			cmbPlayMode.SelectedIndex = round.PlayMode;
+
+			//Set Number of Tracks and start with Track 1
+			spnTrack.Maximum = round.Tracks.Count;
+			spnTrack.Minimum = 1;
+			spnTrack.Value = 1;
+
+			RefreshForTrack();
+		}
+
+		private void RefreshForTrack()
+		{
+			// Get round and track
+			Round round = mQuiz.Rounds[Convert.ToInt32(spnRound.Value) - 1];
+			Track track = round.Tracks[Convert.ToInt32(spnTrack.Value) - 1];
+
+			// Refresh form for track
+			RefreshForTrack(track);
+		}
+
+		private void RefreshForTrack(Track track)
+		{
+			// Stop Media Player
+			ttqPlayer.Stop();
+
+			lblAnswer.Text = track.Title;
+			lblClose.Text = track.CloseAnswer;
+			lblSong.Text = track.Song;
+
+			// Show whether there is a close answer or Song title for the song
+			if (!track.HasCloseAnswer)
+				lblClosePointsDesc.Visible = false;
+			else if (lblAnswerPointsDesc.Visible == true)
+				lblClosePointsDesc.Visible = true;
+			if (!track.HasSong)
+				lblSongPointsDesc.Visible = false;
+			else if (lblAnswerPointsDesc.Visible == true)
+				lblSongPointsDesc.Visible = true;
+		}
+
+		private void cmbPlayMode_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			btnPlay_Click(sender, e);
 		}
 	}
 }

@@ -28,7 +28,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuizForm));
 			this.lblRound = new System.Windows.Forms.Label();
 			this.lblTrack = new System.Windows.Forms.Label();
 			this.spnRound = new System.Windows.Forms.NumericUpDown();
@@ -47,7 +46,6 @@
 			this.lblAnswerPointsDesc = new System.Windows.Forms.Label();
 			this.lblClosePointsDesc = new System.Windows.Forms.Label();
 			this.grpPlayer = new System.Windows.Forms.GroupBox();
-			this.ttqPlayer = new TTQ.TTQPlayer();
 			this.lblTime = new System.Windows.Forms.Label();
 			this.btnNext = new System.Windows.Forms.Button();
 			this.btnStop = new System.Windows.Forms.Button();
@@ -57,6 +55,7 @@
 			this.btnPrint = new System.Windows.Forms.Button();
 			this.tmrSecond = new System.Windows.Forms.Timer(this.components);
 			this.chkAutomated = new System.Windows.Forms.CheckBox();
+			this.ttqPlayer = new IntelOrca.TTQ.TTQPlayer();
 			((System.ComponentModel.ISupportInitialize)(this.spnRound)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.spnTrack)).BeginInit();
 			this.grpAnswers.SuspendLayout();
@@ -105,8 +104,8 @@
 			// 
 			// lblRoundName
 			// 
-			this.lblRoundName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblRoundName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblRoundName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblRoundName.ForeColor = System.Drawing.Color.Blue;
 			this.lblRoundName.Location = new System.Drawing.Point(426, 12);
@@ -118,8 +117,8 @@
 			// 
 			// lblAnswer
 			// 
-			this.lblAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAnswer.ForeColor = System.Drawing.Color.Blue;
 			this.lblAnswer.Location = new System.Drawing.Point(6, 19);
@@ -131,8 +130,8 @@
 			// 
 			// lblClose
 			// 
-			this.lblClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblClose.ForeColor = System.Drawing.Color.Blue;
 			this.lblClose.Location = new System.Drawing.Point(6, 54);
@@ -144,8 +143,8 @@
 			// 
 			// lblSong
 			// 
-			this.lblSong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSong.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblSong.ForeColor = System.Drawing.Color.Blue;
 			this.lblSong.Location = new System.Drawing.Point(6, 89);
@@ -175,11 +174,12 @@
 			this.cmbPlayMode.Name = "cmbPlayMode";
 			this.cmbPlayMode.Size = new System.Drawing.Size(125, 21);
 			this.cmbPlayMode.TabIndex = 12;
+			this.cmbPlayMode.SelectedIndexChanged += new System.EventHandler(this.cmbPlayMode_SelectedIndexChanged);
 			// 
 			// grpAnswers
 			// 
-			this.grpAnswers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpAnswers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpAnswers.Controls.Add(this.lblSongPoints);
 			this.grpAnswers.Controls.Add(this.lblClosePoints);
 			this.grpAnswers.Controls.Add(this.lblAnswerPoints);
@@ -198,8 +198,8 @@
 			// 
 			// lblSongPoints
 			// 
-			this.lblSongPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSongPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblSongPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblSongPoints.Location = new System.Drawing.Point(518, 89);
 			this.lblSongPoints.Name = "lblSongPoints";
@@ -210,8 +210,8 @@
 			// 
 			// lblClosePoints
 			// 
-			this.lblClosePoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblClosePoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblClosePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblClosePoints.Location = new System.Drawing.Point(518, 54);
 			this.lblClosePoints.Name = "lblClosePoints";
@@ -222,8 +222,8 @@
 			// 
 			// lblAnswerPoints
 			// 
-			this.lblAnswerPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblAnswerPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblAnswerPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAnswerPoints.Location = new System.Drawing.Point(518, 19);
 			this.lblAnswerPoints.Name = "lblAnswerPoints";
@@ -234,8 +234,8 @@
 			// 
 			// lblSongPointsDesc
 			// 
-			this.lblSongPointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblSongPointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblSongPointsDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblSongPointsDesc.ForeColor = System.Drawing.Color.Blue;
 			this.lblSongPointsDesc.Location = new System.Drawing.Point(9, 89);
@@ -247,8 +247,8 @@
 			// 
 			// lblAnswerPointsDesc
 			// 
-			this.lblAnswerPointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblAnswerPointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblAnswerPointsDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblAnswerPointsDesc.ForeColor = System.Drawing.Color.Blue;
 			this.lblAnswerPointsDesc.Location = new System.Drawing.Point(9, 19);
@@ -260,8 +260,8 @@
 			// 
 			// lblClosePointsDesc
 			// 
-			this.lblClosePointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.lblClosePointsDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lblClosePointsDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lblClosePointsDesc.ForeColor = System.Drawing.Color.Blue;
 			this.lblClosePointsDesc.Location = new System.Drawing.Point(9, 54);
@@ -273,8 +273,8 @@
 			// 
 			// grpPlayer
 			// 
-			this.grpPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grpPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.grpPlayer.Controls.Add(this.ttqPlayer);
 			this.grpPlayer.Controls.Add(this.lblTime);
 			this.grpPlayer.Controls.Add(this.btnNext);
@@ -288,16 +288,6 @@
 			this.grpPlayer.TabIndex = 0;
 			this.grpPlayer.TabStop = false;
 			this.grpPlayer.Text = "Player";
-			// 
-			// ttqPlayer
-			// 
-			this.ttqPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.ttqPlayer.CurrentPosition = 0;
-			this.ttqPlayer.Location = new System.Drawing.Point(6, 69);
-			this.ttqPlayer.Name = "ttqPlayer";
-			this.ttqPlayer.Size = new System.Drawing.Size(744, 30);
-			this.ttqPlayer.TabIndex = 19;
 			// 
 			// lblTime
 			// 
@@ -387,7 +377,19 @@
 			this.chkAutomated.UseVisualStyleBackColor = true;
 			this.chkAutomated.CheckedChanged += new System.EventHandler(this.chkAutomated_CheckedChanged);
 			// 
-			// PlayForm
+			// ttqPlayer
+			// 
+			this.ttqPlayer.AllowSeeking = true;
+			this.ttqPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ttqPlayer.CurrentPosition = 0D;
+			this.ttqPlayer.Location = new System.Drawing.Point(6, 69);
+			this.ttqPlayer.Name = "ttqPlayer";
+			this.ttqPlayer.Size = new System.Drawing.Size(744, 30);
+			this.ttqPlayer.TabIndex = 19;
+			this.ttqPlayer.Track = null;
+			// 
+			// QuizForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -402,7 +404,7 @@
 			this.Controls.Add(this.lblTrack);
 			this.Controls.Add(this.lblRoundName);
 			this.Controls.Add(this.spnTrack);
-			this.Name = "PlayForm";
+			this.Name = "QuizForm";
 			this.Text = "QUIZ NAME";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PlayForm_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.spnRound)).EndInit();
