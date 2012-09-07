@@ -39,6 +39,9 @@ namespace IntelOrca.TTQ
 			mPlaylist = mDatabase.Tracks.GetFromGenre(genres);
 			mPlaylist.Shuffle();
 
+			// Now sort by times played
+			mPlaylist.Sort(new Track.TrackTimesPlayedComparer());
+
 			// Start the session
 			mSessionTime.Start();
 			NextTrack();
