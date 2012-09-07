@@ -1,4 +1,10 @@
-﻿using System;
+﻿////////////////////////////////////
+// Theme Tune Quiz (TTQ)          //
+// Copyright (C) Ted John 2012    //
+// http://intelorca.co.uk         //
+////////////////////////////////////
+
+using System;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;

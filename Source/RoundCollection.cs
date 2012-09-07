@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿////////////////////////////////////
+// Theme Tune Quiz (TTQ)          //
+// Copyright (C) Ted John 2012    //
+// http://intelorca.co.uk         //
+////////////////////////////////////
+
+using System.Collections;
 
 namespace IntelOrca.TTQ
 {

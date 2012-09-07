@@ -1,4 +1,10 @@
-﻿using System.IO;
+﻿////////////////////////////////////
+// Theme Tune Quiz (TTQ)          //
+// Copyright (C) Ted John 2012    //
+// http://intelorca.co.uk         //
+////////////////////////////////////
+
+using System.IO;
 using System.Text;
 
 namespace IntelOrca.TTQ
