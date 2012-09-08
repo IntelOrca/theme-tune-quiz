@@ -5,6 +5,7 @@
 ////////////////////////////////////
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -16,9 +17,9 @@ namespace IntelOrca.TTQ
 		private TrackCollection mPlaylist;
 		private Track mCurrentTrack;
 
-		private StopWatch mSessionTime = new StopWatch();
-		private StopWatch mQuestionTime = new StopWatch();
-		private StopWatch mAnswerTime = new StopWatch();
+		private Stopwatch mSessionTime = new Stopwatch();
+		private Stopwatch mQuestionTime = new Stopwatch();
+		private Stopwatch mAnswerTime = new Stopwatch();
 
 		private int mNoQuestions;
 		private int mCorrectAnswers;
