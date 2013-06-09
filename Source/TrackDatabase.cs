@@ -31,6 +31,9 @@ namespace IntelOrca.TTQ
 				tune.Filename = filename.InnerText;
 			foreach (XmlNode element in node.ChildNodes) {
 				switch (element.Name) {
+					case "Category":
+						tune.Category = element.InnerText;
+						break;
 					case "Genre":
 						tune.Genre = element.InnerText;
 						break;
@@ -98,6 +101,7 @@ namespace IntelOrca.TTQ
 			xmlWriter.WriteStartElement("Tune");
 			xmlWriter.WriteAttributeString("Filename", tune.Filename);
 
+			WritePlainElement(xmlWriter, "Category", tune.Category);
 			WritePlainElement(xmlWriter, "Genre", tune.Genre);
 			WritePlainElement(xmlWriter, "Title", tune.Title);
 			if (HasContent(tune.Song))
@@ -177,17 +181,17 @@ namespace IntelOrca.TTQ
 			}
 		}
 
-		public string[] GetGenres()
+		public string[] GetCategories()
 		{
-			HashSet<string> genreSet = new HashSet<string>();
+			HashSet<string> categorySet = new HashSet<string>();
 			foreach (Track t in mTracks) {
-				if (!genreSet.Contains(t.Genre.ToLower()))
-					genreSet.Add(t.Genre.ToLower());
+				if (!categorySet.Contains(t.Category.ToLower()))
+					categorySet.Add(t.Category.ToLower());
 			}
 
-			string[] genres = new string[genreSet.Count];
-			genreSet.CopyTo(genres);
-			return genres;
+			string[] categories = new string[categorySet.Count];
+			categorySet.CopyTo(categories);
+			return categories;
 		}
 
 		public Track GetTune(string filename)
@@ -278,11 +282,11 @@ namespace IntelOrca.TTQ
 			mTracks.Sort(new Track.TrackTitleComparer());
 		}
 
-		public int GetGenreTrackCount(string genre)
+		public int GetCategoryTrackCount(string category)
 		{
 			int count = 0;
 			foreach (Track t in mTracks)
-				if (String.Compare(t.Genre, genre, true) == 0)
+				if (String.Compare(t.Category, category, true) == 0)
 					count++;
 			return count;
 		}

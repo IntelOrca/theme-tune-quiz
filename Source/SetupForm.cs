@@ -30,10 +30,10 @@ namespace IntelOrca.TTQ
 		private void PopulateLists()
 		{
 			// Count Genres and Tracks
-			mGenres = mDatabase.GetGenres();
+			mGenres = mDatabase.GetCategories();
 			mGenreTrackCount = new int[mGenres.Length];
 			for (int i = 0; i < mGenres.Length; i++)
-				mGenreTrackCount[i] = mDatabase.GetGenreTrackCount(mGenres[i]);
+				mGenreTrackCount[i] = mDatabase.GetCategoryTrackCount(mGenres[i]);
 
 			// Populate lists
 			for (int i = 0; i < 5; i++) {

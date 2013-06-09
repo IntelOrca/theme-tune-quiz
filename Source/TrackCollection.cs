@@ -13,17 +13,17 @@ namespace IntelOrca.TTQ
 {
 	class TrackCollection : CollectionBase
 	{
-		public void AddRandomTracks(TrackDatabase database, HashSet<Track> ignoreTracks, string[] genres, int tracks, bool themesonly)
+		public void AddRandomTracks(TrackDatabase database, HashSet<Track> ignoreTracks, string[] categories, int tracks, bool themesonly)
 		{
 			//Create a random generator
 			Random random = new Random();
 
-			//Create list of tracks for selection (ignoring tracks in previous playlists)
+			// Create list of tracks for selection (ignoring tracks in previous playlists)
 			TrackCollection picklist = new TrackCollection();
 			foreach (Track track in database.Tracks) {
-			 	foreach (string s in genres) {
-					//Genre in Round and track not already used
-					if (String.Compare(track.Genre, s, true) == 0 && !ignoreTracks.Contains(track)) {
+			 	foreach (string s in categories) {
+					// Category in Round and track not already used
+					if (String.Compare(track.Category, s, true) == 0 && !ignoreTracks.Contains(track)) {
 						// Check whether only themes to be chosen
 						if (track.IsTheme || !themesonly) {
 							//Add to pick list
@@ -89,17 +89,17 @@ namespace IntelOrca.TTQ
 			return null;
 		}
 
-		public TrackCollection GetFromGenre(string genre)
+		public TrackCollection GetFromCategory(string category)
 		{
-			return GetFromGenre(new string[] { genre });
+			return GetFromCategory(new string[] { category });
 		}
 
-		public TrackCollection GetFromGenre(string[] genres)
+		public TrackCollection GetFromCategory(string[] categories)
 		{
 			TrackCollection newtc = new TrackCollection();
 			foreach (Track t in this)
-				foreach (string g in genres)
-					if (String.Compare(t.Genre, g, true) == 0)
+				foreach (string g in categories)
+					if (String.Compare(t.Category, g, true) == 0)
 						newtc.Add(t);
 			return newtc;
 		}

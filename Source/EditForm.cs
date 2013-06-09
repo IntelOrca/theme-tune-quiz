@@ -32,9 +32,10 @@ namespace IntelOrca.TTQ
 		private void InitalizeGrid()
 		{
 			grdMetadata.Columns.Add("colFilename", "Filename");
-			grdMetadata.Columns.Add("colGenre", "Genre");
+			grdMetadata.Columns.Add("colCategory", "Category");
 			grdMetadata.Columns.Add("colTitle", "Title");
 			grdMetadata.Columns.Add("colSongName", "Song Name");
+			grdMetadata.Columns.Add("colGenre", "Genre");
 			grdMetadata.Columns.Add("colTheme", "Theme");
 			grdMetadata.Columns.Add("colTracklength", "Tracklength");
 			grdMetadata.Columns.Add("colSkipSecs", "SkipSecs");
@@ -96,9 +97,10 @@ namespace IntelOrca.TTQ
 				if (tune.IsTheme)
 					theme = "Yes";
 				grdMetadata.Rows.Add(tune.Filename,
-					tune.Genre,
+					tune.Category,
 					tune.Title,
 					tune.Song,
+					tune.Genre,
 					theme,
 					tune.TrackLength,
 					tune.SkipSecs,
@@ -244,8 +246,8 @@ namespace IntelOrca.TTQ
 						grdMetadata[e.ColumnIndex, e.RowIndex].Value = oldValue;
 					}
 					return;
-				case 1: // Genre
-					tune.Genre = newValue;
+				case 1: // Category
+					tune.Category = newValue;
 					break;
 				case 2: // Title
 					tune.Title = newValue;
@@ -253,10 +255,13 @@ namespace IntelOrca.TTQ
 				case 3: // Song
 					tune.Song = newValue;
 					break;
-				case 4: // Theme
+				case 4: // Genre
+					tune.Genre = newValue;
+					break;
+				case 5: // Theme
 					tune.IsTheme = (newValue.ToLower() == "yes");
 					break;
-				case 6: // SkipSecs
+				case 7: // SkipSecs
 					if (IsPositiveReal(newValue)) {
 						tune.SkipSecs = Convert.ToDouble(newValue);
 						if (tune.SkipSecs > tune.TrackLength)
@@ -267,7 +272,7 @@ namespace IntelOrca.TTQ
 						grdMetadata[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
 					}
 					break;
-				case 7: // PlaySecs
+				case 8: // PlaySecs
 					if (IsPositiveReal(newValue)) {
 						tune.PlaySecs = Convert.ToDouble(newValue);
 						if (tune.PlaySecs > tune.TrackLength)
@@ -278,7 +283,7 @@ namespace IntelOrca.TTQ
 						grdMetadata[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Red;
 					}
 					break;
-				case 8: // CloseAnswer
+				case 9: // CloseAnswer
 					tune.CloseAnswer = newValue;
 					break;
 			}

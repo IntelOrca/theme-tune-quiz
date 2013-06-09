@@ -17,6 +17,7 @@ namespace IntelOrca.TTQ
 		double mSkipsecs, mPlaysecs;
 
 		bool mAutomated = true;
+		bool mReady = false;
 
 		public QuizForm(Quiz quiz)
 		{
@@ -125,7 +126,7 @@ namespace IntelOrca.TTQ
 			switch (cmbPlayMode.SelectedIndex) {
 				case 0:  // Normal
 					if (track.PlaySecs == 0)
-						mPlaysecs = 9999;
+						mPlaysecs = 30;
 					else
 						mPlaysecs = track.PlaySecs;
 					break;
@@ -153,8 +154,11 @@ namespace IntelOrca.TTQ
 			track.SkipSecs = mSkipsecs;
 			track.PlaySecs = mPlaysecs;
 			ttqPlayer.Track = track;
+			ttqPlayer.CurrentPosition = mSkipsecs;
 
 			if (mAutomated) {
+				Application.DoEvents();
+
 				if (!mShowingAnswers) {
 					if (track.HasCloseAnswer)
 						Announcer.PlaySound("track_has_close");
@@ -167,8 +171,9 @@ namespace IntelOrca.TTQ
 
 			countdownToNextTrack = 10;
 
-			ttqPlayer.CurrentPosition = mSkipsecs;
 			ttqPlayer.Play();
+
+			mReady = true;
 		}
 
 		private void btnPrint_Click(object sender, EventArgs e)
@@ -182,6 +187,7 @@ namespace IntelOrca.TTQ
 		private void btnStop_Click(object sender, EventArgs e)
 		{
 			ttqPlayer.Stop();
+			mReady = false;
 		}
 
 		private void spnRound_ValueChanged(object sender, EventArgs e)
@@ -243,6 +249,9 @@ namespace IntelOrca.TTQ
 		private void tmrSecond_Tick(object sender, EventArgs e)
 		{
 			if (!mAutomated)
+				return;
+
+			if (!mReady)
 				return;
 
 			if (ttqPlayer.Status != TTQPlayerStatus.Stopped)

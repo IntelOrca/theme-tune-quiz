@@ -4,6 +4,7 @@
 // http://intelorca.co.uk         //
 ////////////////////////////////////
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -118,8 +119,8 @@ namespace IntelOrca.TTQ
 			if (playSecs == 0)
 				playSecs = mTrack.TrackLength - skipSecs;
 
-			double start = skipSecs / mTrack.TrackLength;
-			double duration = playSecs / mTrack.TrackLength;
+			double start = Math.Max(0.0, Math.Min(1.0, skipSecs / mTrack.TrackLength));
+			double duration = Math.Max(0.0, Math.Min(1.0, playSecs / mTrack.TrackLength));
 
 			mSkipBar.Left = (int)(mTrackBar.Left + (start * mTrackBar.Width));
 			mSkipBar.Top = 15;
@@ -312,7 +313,6 @@ namespace IntelOrca.TTQ
 			set
 			{
 				mPlayback.CurrentPosition = value;
-				Play();
 			}
 		}
 

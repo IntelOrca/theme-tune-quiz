@@ -14,6 +14,7 @@ namespace IntelOrca.TTQ
 	{
 		private string mFilename;
 		private string mGenre;
+		private string mCategory;
 		private bool mIsTheme;
 		private string mTitle;
 		private string mCloseAnswer;
@@ -78,6 +79,18 @@ namespace IntelOrca.TTQ
 			set
 			{
 				mGenre = value;
+			}
+		}
+
+		public string Category
+		{
+			get
+			{
+				return mCategory;
+			}
+			set
+			{
+				mCategory = value;
 			}
 		}
 

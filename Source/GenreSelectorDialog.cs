@@ -22,7 +22,7 @@ namespace IntelOrca.TTQ
 		public GenreSelectorDialog(TrackDatabase db)
 		{
 			mDatabase = db;
-			mGenres = mDatabase.GetGenres();
+			mGenres = mDatabase.GetCategories();
 			mSelectedGenres = new string[0];
 
 			mForm = new Form();
@@ -43,7 +43,7 @@ namespace IntelOrca.TTQ
 			mGenreCheckList.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
 
 			foreach (string genre in mGenres)
-				mGenreCheckList.Items.Add(String.Format("{0} ({1})", genre, mDatabase.GetGenreTrackCount(genre)), true);
+				mGenreCheckList.Items.Add(String.Format("{0} ({1})", genre, mDatabase.GetCategoryTrackCount(genre)), true);
 
 			mForm.Controls.Add(mGenreCheckList);
 

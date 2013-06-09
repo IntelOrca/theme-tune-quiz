@@ -30,7 +30,7 @@
 		{
 			this.pnlQuestions = new System.Windows.Forms.Panel();
 			this.cmbAnswer = new System.Windows.Forms.ComboBox();
-			this.lblGenre = new System.Windows.Forms.Label();
+			this.lblCategory = new System.Windows.Forms.Label();
 			this.lblOutcome = new System.Windows.Forms.Label();
 			this.btnFinish = new System.Windows.Forms.Button();
 			this.btnNext = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.pnlQuestions.Controls.Add(this.cmbAnswer);
-			this.pnlQuestions.Controls.Add(this.lblGenre);
+			this.pnlQuestions.Controls.Add(this.lblCategory);
 			this.pnlQuestions.Controls.Add(this.lblOutcome);
 			this.pnlQuestions.Controls.Add(this.btnFinish);
 			this.pnlQuestions.Controls.Add(this.btnNext);
@@ -86,15 +86,16 @@
 			this.cmbAnswer.TabIndex = 5;
 			this.cmbAnswer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmbAnswer_KeyDown);
 			// 
-			// lblGenre
+			// lblCategory
 			// 
-			this.lblGenre.AutoSize = true;
-			this.lblGenre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblGenre.Location = new System.Drawing.Point(15, 58);
-			this.lblGenre.Name = "lblGenre";
-			this.lblGenre.Size = new System.Drawing.Size(48, 16);
-			this.lblGenre.TabIndex = 2;
-			this.lblGenre.Text = "Genre:";
+			this.lblCategory.AutoSize = true;
+			this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblCategory.Location = new System.Drawing.Point(15, 58);
+			this.lblCategory.Name = "lblCategory";
+			this.lblCategory.Size = new System.Drawing.Size(48, 16);
+			this.lblCategory.TabIndex = 2;
+			this.lblCategory.Text = "Genre:";
+			this.lblCategory.UseMnemonic = false;
 			// 
 			// lblOutcome
 			// 
@@ -143,6 +144,7 @@
 			this.lblSongName.Size = new System.Drawing.Size(80, 16);
 			this.lblSongName.TabIndex = 1;
 			this.lblSongName.Text = "Song name:";
+			this.lblSongName.UseMnemonic = false;
 			// 
 			// lblThemeOf
 			// 
@@ -153,6 +155,7 @@
 			this.lblThemeOf.Size = new System.Drawing.Size(93, 20);
 			this.lblThemeOf.TabIndex = 0;
 			this.lblThemeOf.Text = "Theme of: ?";
+			this.lblThemeOf.UseMnemonic = false;
 			// 
 			// btnReplay
 			// 
@@ -201,6 +204,7 @@
 			this.ttqPlayer.Name = "ttqPlayer";
 			this.ttqPlayer.Size = new System.Drawing.Size(384, 30);
 			this.ttqPlayer.TabIndex = 4;
+			this.ttqPlayer.Track = null;
 			// 
 			// pnlConclusion
 			// 
@@ -335,7 +339,7 @@
 		#endregion
 
         private System.Windows.Forms.Panel pnlQuestions;
-        private System.Windows.Forms.Label lblGenre;
+        private System.Windows.Forms.Label lblCategory;
         private System.Windows.Forms.Label lblOutcome;
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Button btnNext;

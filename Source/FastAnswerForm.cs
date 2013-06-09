@@ -32,7 +32,7 @@ namespace IntelOrca.TTQ
 
 		private bool mFinished;
 
-		public FastAnswerForm(TrackDatabase db, string[] genres = null)
+		public FastAnswerForm(TrackDatabase db, string[] categories = null)
 		{
 			mDatabase = db;
 
@@ -42,7 +42,7 @@ namespace IntelOrca.TTQ
 			pnlConclusion.Visible = false;
 
 			// Create playlist
-			mPlaylist = mDatabase.Tracks.GetFromGenre(genres);
+			mPlaylist = mDatabase.Tracks.GetFromCategory(categories);
 			mPlaylist.Shuffle();
 
 			// Now sort by times played
@@ -56,7 +56,7 @@ namespace IntelOrca.TTQ
 		private void PopulateAnswerList()
 		{
 			cmbAnswer.AutoCompleteCustomSource.Clear();
-			foreach (Track track in mPlaylist.GetFromGenre(mCurrentTrack.Genre))
+			foreach (Track track in mPlaylist.GetFromCategory(mCurrentTrack.Category))
 				AddPossibleAnswerToList(track);
 			AddPossibleAnswerToList(mCurrentTrack);
 		}
@@ -90,7 +90,7 @@ namespace IntelOrca.TTQ
 			cmbAnswer.Visible = false;
 			cmbAnswer.Text = String.Empty;
 
-			lblGenre.Text = String.Format("Genre: {0}", mCurrentTrack.Genre);
+			lblCategory.Text = String.Format("Category: {0}", mCurrentTrack.Category);
 			lblThemeOf.Text = String.Empty;
 			lblSongName.Text = String.Empty;
 

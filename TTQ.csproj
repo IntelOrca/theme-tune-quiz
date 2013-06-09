@@ -251,7 +251,6 @@
     <Compile Include="Source\SetupForm.Designer.cs">
       <DependentUpon>SetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\StopWatch.cs" />
     <Compile Include="Source\Track.cs" />
     <Compile Include="Source\TrackDatabase.cs" />
   </ItemGroup>

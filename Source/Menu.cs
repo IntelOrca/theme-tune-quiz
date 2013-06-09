@@ -25,11 +25,10 @@ namespace IntelOrca.TTQ
 
 		private void btnNewQuiz_Click(object sender, EventArgs e)
 		{
-			SetupForm form = new SetupForm(mDatabase);
 			Hide();
-			if (form.ShowDialog() == DialogResult.OK) {
-				mLastQuizFilename = form.Filename;
-			}
+			using (SetupForm form = new SetupForm(mDatabase))
+				if (form.ShowDialog() == DialogResult.OK)
+					mLastQuizFilename = form.Filename;
 			Show();
 		}
 
@@ -46,10 +45,10 @@ namespace IntelOrca.TTQ
 			if (dialog.ShowDialog() == DialogResult.OK) {
 				mLastQuizFilename = dialog.FileName;
 
-				Quiz quiz = new Quiz(mDatabase, dialog.FileName);
-				QuizForm form = new QuizForm(quiz);
 				Hide();
-				form.ShowDialog();
+				Quiz quiz = new Quiz(mDatabase, dialog.FileName);
+				using (QuizForm form = new QuizForm(quiz))
+					form.ShowDialog();
 				Show();
 			}
 		}
@@ -67,32 +66,32 @@ namespace IntelOrca.TTQ
 			if (dialog.ShowDialog() == DialogResult.OK) {
 				mLastQuizFilename = dialog.FileName;
 
-				Quiz quiz = new Quiz(mDatabase, dialog.FileName);
-				QuizForm form = new QuizForm(quiz);
-				form.ShowAnswers = true;
-
 				Hide();
-				form.ShowDialog();
+				Quiz quiz = new Quiz(mDatabase, dialog.FileName);
+				using (QuizForm form = new QuizForm(quiz)) {
+					form.ShowAnswers = true;
+					form.ShowDialog();
+				}
 				Show();
 			}
 		}
 
 		private void btnFastAnswer_Click(object sender, EventArgs e)
 		{
+			Hide();
 			GenreSelectorDialog gsdialog = new GenreSelectorDialog(mDatabase);
 			if (gsdialog.ShowDialog() == DialogResult.OK) {
-				FastAnswerForm form = new FastAnswerForm(mDatabase, gsdialog.SelectedGenres);
-				Hide();
-				form.ShowDialog();
-				Show();
+				using (FastAnswerForm form = new FastAnswerForm(mDatabase, gsdialog.SelectedGenres))
+					form.ShowDialog();
 			}
+			Show();
 		}
 
 		private void btnEdit_Click(object sender, EventArgs e)
 		{
-			EditForm form = new EditForm(mDatabase);
 			Hide();
-			form.ShowDialog();
+			using (EditForm form = new EditForm(mDatabase))
+				form.ShowDialog();
 			Show();
 		}
 
