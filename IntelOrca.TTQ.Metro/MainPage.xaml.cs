@@ -27,7 +27,7 @@ namespace IntelOrca.TTQ.Metro
         {
             this.InitializeComponent();
 
-			this.Loaded += (s, e) => this.Frame.Navigate(typeof(PlayQuizPage));
+			this.Loaded += (s, e) => this.Frame.Navigate(typeof(EditRepositoryPage));
         }
     }
 }

@@ -70,54 +70,7 @@
             </Border>
 
             <Border Grid.Row="3" Padding="8">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="15" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE102;" />
-                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE103;" />
-                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE101;" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-                        <TextBlock Text="Override play mode" Margin="0,0,10,0" />
-                        <ComboBox Width="200" SelectedIndex="0" >
-                            <x:String>Normal</x:String>
-                            <x:String>Test</x:String>
-                            <x:String>Chicken</x:String>
-                        </ComboBox>
-                    </StackPanel>
-
-                    <Grid Grid.Row="2" Grid.ColumnSpan="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="20">
-                            <Rectangle Fill="{ThemeResource BackButtonPointerOverBackgroundThemeBrush}" Height="10" />
-                            <Rectangle Fill="{ThemeResource ApplicationForegroundThemeBrush}" Width="350" Height="10" HorizontalAlignment="Left" />
-                            <Ellipse Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" Stroke="White" StrokeThickness="5" Width="20" Height="20" Margin="340,0,0,0" HorizontalAlignment="Left" />
-                        </Grid>
-                    
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="0:00" />
-                        <TextBlock Grid.Row="1" Grid.Column="2" Text="2:36" />
-                    </Grid>
-                </Grid>
+                <local:TrackPlayerControl />
             </Border>
         </Grid>
     </Frame>

@@ -1,12 +1,15 @@
-﻿using System;
+﻿using IntelOrca.TTQ.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,8 +25,15 @@ namespace IntelOrca.TTQ.Metro
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
+		private TrackRepository _trackRepository;
+
+		/// <summary>
+		/// Gets the track repository.
+		/// </summary>
+		public TrackRepository TrackRepository { get { return _trackRepository; } }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -32,7 +42,22 @@ namespace IntelOrca.TTQ.Metro
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+			LoadTrackRepository().Wait();
         }
+
+		/// <summary>
+		/// Loads the track repository.
+		/// </summary>
+		/// <returns></returns>
+		public async Task LoadTrackRepository()
+		{
+			StorageFolder musicPath = KnownFolders.MusicLibrary;
+			StorageFile file = await musicPath.GetFileAsync("ttq_repository.xml");
+
+			using (Stream stream = await file.OpenStreamForReadAsync())
+				_trackRepository = TrackRepository.FromXml(stream);
+		}
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -42,12 +67,12 @@ namespace IntelOrca.TTQ.Metro
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+//#if DEBUG
+//			if (System.Diagnostics.Debugger.IsAttached)
+//			{
+//				this.DebugSettings.EnableFrameRateCounter = true;
+//			}
+//#endif
 
             Frame rootFrame = Window.Current.Content as Frame;
 

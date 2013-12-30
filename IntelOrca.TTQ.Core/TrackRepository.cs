@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace IntelOrca.TTQ.Core
 	/// <summary>
 	/// Represents a repository / database of tracks uniquely identified by relative filename.
 	/// </summary>
-	public class TrackRepository
+	public class TrackRepository : IEnumerable<Track>
 	{
 		private readonly Dictionary<string, Track> _tracks = new Dictionary<string, Track>();
 
@@ -45,6 +46,28 @@ namespace IntelOrca.TTQ.Core
 
 				throw new TrackNotFoundException(filename);
 			}
+		}
+
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+		/// </returns>
+		public IEnumerator<Track> GetEnumerator()
+		{
+			return _tracks.Values.GetEnumerator();
+		}
+
+		/// <summary>
+		/// Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		/// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		/// <summary>
@@ -94,31 +117,32 @@ namespace IntelOrca.TTQ.Core
 		/// <summary>
 		/// Reads a track repository formatted as XML.
 		/// </summary>
-		/// <param name="xml">The XML.</param>
+		/// <param name="inputStream">The XML input stream.</param>
 		/// <returns>A track repository.</returns>
-		public TrackRepository FromXml(string xml)
+		public static TrackRepository FromXml(Stream inputStream)
 		{
 			IEnumerable<Track> tracks;
 
 			// Read track repository XML
 			try {
-				XDocument document = XDocument.Parse(xml);
+				XDocument document = XDocument.Load(inputStream);
 				XElement repositoryNode = document.Element("repository");
 
 				tracks = repositoryNode.Descendants("track")
 					.Select(trackNode => new Track() {
 						Filename = trackNode.Attribute("filename").Value,
-						Genre = trackNode.Element("genre").Value,
-						Category = trackNode.Element("category").Value,
-						IsTheme = Boolean.Parse(trackNode.Element("istheme").Value),
-						Title = trackNode.Element("title").Value,
-						CloseAnswer = trackNode.Element("closeanswer").Value,
-						Song = trackNode.Element("song").Value,
-						TacticalStart = Int32.Parse(trackNode.Element("tacticalstart").Value),
-						TacticalDuration = Int32.Parse(trackNode.Element("tacticalduration").Value),
-						TrackLength = Int32.Parse(trackNode.Element("tracklength").Value),
-						TimesPlayed = Int32.Parse(trackNode.Element("timesplayed").Value),
-					});
+						Genre = trackNode.GetElementStringValueOrDefault("genre"),
+						Category = trackNode.GetElementStringValueOrDefault("category"),
+						IsTheme = trackNode.GetElementBooleanValueOrDefault("theme"),
+						Title = trackNode.GetElementStringValueOrDefault("title"),
+						CloseAnswer = trackNode.GetElementStringValueOrDefault("closeanswer"),
+						Song = trackNode.GetElementStringValueOrDefault("song"),
+						TacticalStart = trackNode.GetElementDoubleValueOrDefault("tacticalstart"),
+						TacticalDuration = trackNode.GetElementDoubleValueOrDefault("tacticalduration"),
+						TrackLength = trackNode.GetElementInt32ValueOrDefault("tracklength"),
+						TimesPlayed = trackNode.GetElementInt32ValueOrDefault("timesplayed"),
+					})
+					.ToArray();
 			} catch (Exception ex) {
 				throw new XmlException("Unable to read track repository.", ex);
 			}

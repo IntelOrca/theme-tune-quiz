@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IntelOrca.TTQ.Metro.ViewModel
 {
-	public class PlayQuizPageViewModel
+	public class PlayQuizPageViewModel : ViewModel
 	{
 		public string QuizName { get; set; }
 
