@@ -81,6 +81,16 @@ namespace IntelOrca.TTQ
 			return (GetFromFilename(filename) != null);
 		}
 
+		public Track GetFromName(string name)
+		{
+			foreach (Track t in this) {
+				if (t.Title == name)
+					return t;
+			}
+
+			return null;
+		}
+
 		public Track GetFromFilename(string filename)
 		{
 			foreach (Track t in this)

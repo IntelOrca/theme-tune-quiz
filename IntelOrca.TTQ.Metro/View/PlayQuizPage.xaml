@@ -1,0 +1,124 @@
+﻿<Page
+    x:Class="IntelOrca.TTQ.Metro.View.PlayQuizPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IntelOrca.TTQ.Metro.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:IntelOrca.TTQ.Metro.ViewModel"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="{ThemeResource BackButtonPointerOverBackgroundThemeBrush}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="8" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="40" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+    
+    <Page.DataContext>
+        <ViewModel:PlayQuizPageViewModel />
+    </Page.DataContext>
+
+    <Frame Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+        
+            <TextBlock Grid.Row="0" FontSize="80" Text="{Binding QuizName}" Margin="0,0,0,20" />
+
+            <Border Grid.Row="1" Margin="0,0,0,10">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Round" Margin="0,0,10,0" />
+                        <ComboBox Margin="0,0,32,0" Width="100" ItemsSource="{Binding Rounds}" />
+                        <TextBlock Text="Track" Margin="0,0,10,0" />
+                        <ComboBox Width="100" ItemsSource="{Binding Tracks}" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding CurrentRoundName}" HorizontalAlignment="Right" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Margin="0,0,0,8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                
+                    <TextBlock Grid.Row="0" Text="2 points for the full answer" />
+                    <TextBlock Grid.Row="1" Text="1 point for the close answer" />
+                    <TextBlock Grid.Row="2" Text="Bonus point for correct answer" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Padding="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE102;" />
+                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE103;" />
+                        <Button FontFamily="Segoe UI Symbol" FontSize="50" Content="&#xE101;" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock Text="Override play mode" Margin="0,0,10,0" />
+                        <ComboBox Width="200" SelectedIndex="0" >
+                            <x:String>Normal</x:String>
+                            <x:String>Test</x:String>
+                            <x:String>Chicken</x:String>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="20">
+                            <Rectangle Fill="{ThemeResource BackButtonPointerOverBackgroundThemeBrush}" Height="10" />
+                            <Rectangle Fill="{ThemeResource ApplicationForegroundThemeBrush}" Width="350" Height="10" HorizontalAlignment="Left" />
+                            <Ellipse Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" Stroke="White" StrokeThickness="5" Width="20" Height="20" Margin="340,0,0,0" HorizontalAlignment="Left" />
+                        </Grid>
+                    
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="0:00" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" Text="2:36" />
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Frame>
+</Page>
