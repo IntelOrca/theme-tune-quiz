@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -10,6 +12,32 @@ namespace IntelOrca.TTQ.Core
 	/// </summary>
 	public static class Util
 	{
+		#region Attributes
+
+		/// <summary>
+		/// Gets an attribute from the given type or enum member.
+		/// </summary>
+		/// <typeparam name="T">The <see cref="Attribute"/> type.</typeparam>
+		/// <param name="value">The type or enum member.</param>
+		/// <returns>The attribute or null if there is no defined attribute.</returns>
+		public static T GetAttribute<T>(object value) where T : Attribute
+		{
+			// Get type
+			Type type = value as Type;
+			if (type == null) {
+				// Expecting an enum type
+				type = value.GetType();
+				if (!type.GetTypeInfo().IsEnum)
+					throw new ArgumentException("Value must be a Type or Enum value.", "value");
+
+				return type.GetTypeInfo().DeclaredMembers.First(x => x.Name == value.ToString()).GetCustomAttribute<T>();
+			} else {
+				return type.GetTypeInfo().GetCustomAttribute<T>();
+			}
+		}
+
+		#endregion
+
 		#region Xml Extension
 
 		public static Task WriteStartElementAsync(this XmlWriter xmlWriter, string localName)

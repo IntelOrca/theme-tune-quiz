@@ -28,9 +28,7 @@
 
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
             <TextBlock Text="Override play mode" Margin="0,0,10,0" />
-            <ComboBox x:Name="OverridePlayModeComboBox" Width="200" SelectedIndex="0">
-                <x:String>Test</x:String>
-            </ComboBox>
+            <ComboBox x:Name="OverridePlayModeComboBox" Width="200" />
         </StackPanel>
 
         <Grid Grid.Row="2" Grid.ColumnSpan="3">
@@ -44,14 +42,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="20">
+            <Grid x:Name="TrackBarContainer" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Height="20">
                 <Rectangle Fill="{ThemeResource BackButtonPointerOverBackgroundThemeBrush}" Height="10" />
-                <Rectangle Fill="{ThemeResource ApplicationForegroundThemeBrush}" Width="350" Height="10" HorizontalAlignment="Left" />
-                <Ellipse Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" Stroke="White" StrokeThickness="5" Width="20" Height="20" Margin="340,0,0,0" HorizontalAlignment="Left" />
+                <Rectangle x:Name="TrackBarProgress" Fill="{ThemeResource ApplicationForegroundThemeBrush}" Width="350" Height="10" HorizontalAlignment="Left" />
+                <Ellipse x:Name="TrackBarThumb" Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" Stroke="White" StrokeThickness="5" Width="20" Height="20" Margin="340,0,0,0" HorizontalAlignment="Left" />
             </Grid>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="0:00" />
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Track.TrackLength,ElementName=Self}" />
+            <TextBlock x:Name="CurrentTimeLabel" Grid.Row="1" Grid.Column="0" Text="0.00" />
+            <TextBlock x:Name="TrackDurationLabel" Grid.Row="1" Grid.Column="2" Text="0.00" />
         </Grid>
     </Grid>
 </UserControl>

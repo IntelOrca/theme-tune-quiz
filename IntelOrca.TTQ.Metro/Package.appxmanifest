@@ -15,7 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="IntelOrca.TTQ.Metro.App">
-      <m2:VisualElements DisplayName="IntelOrca.TTQ.Metro" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="IntelOrca.TTQ.Metro" ForegroundText="light" BackgroundColor="#464646">
+      <m2:VisualElements DisplayName="Theme Tune Quiz" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="Tests yourself or a team against a customisable set of theme tune tracks." ForegroundText="light" BackgroundColor="#CC9900">
+        <m2:DefaultTile ShortName="Theme Tune Quiz">
+        </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
       </m2:VisualElements>
     </Application>

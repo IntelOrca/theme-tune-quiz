@@ -22,5 +22,16 @@ namespace IntelOrca.TTQ.Core
 		{
 			_value = value;
 		}
+
+		/// <summary>
+		/// Gets the friendly name of a type or enum member if it defines a FriendlyNameAttribute otherwise calls ToString.
+		/// </summary>
+		/// <param name="input">The input object or enum value.</param>
+		/// <returns>The friendly name.</returns>
+		public static string GetFriendlyNameOrTypeName(object input)
+		{
+			FriendlyNameAttribute attribute = Util.GetAttribute<FriendlyNameAttribute>(input);
+			return attribute == null ? input.ToString() : attribute.Value;
+		}
 	}
 }
