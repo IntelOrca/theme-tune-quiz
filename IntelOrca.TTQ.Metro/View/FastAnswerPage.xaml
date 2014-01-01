@@ -1,0 +1,102 @@
+﻿<Page
+    x:Class="IntelOrca.TTQ.Metro.View.FastAnswerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IntelOrca.TTQ.Metro.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:IntelOrca.TTQ.Metro.ViewModel"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <ViewModel:FastAnswerViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Padding="20">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Back" Style="{StaticResource NavigationBackButtonNormalStyle}" Margin="0,0,20,0" VerticalAlignment="Stretch" Click="OnBackButtonClick" />
+                <TextBlock Grid.Column="1" Text="Fast answer" FontSize="30" />
+                <Button Grid.Column="3" Content="Forward" Style="{StaticResource NavigationBackButtonNormalStyle}" Margin="0,0,20,0" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Click="OnForwardButtonClick" >
+                    <Button.RenderTransform>
+                        <CompositeTransform ScaleX="-1"/>
+                    </Button.RenderTransform>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid x:Name="CategorySelectionPanel" Margin="20" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Category selection" Margin="0,0,0,10" />
+                <ListView Grid.Row="1" Background="{ThemeResource ListBoxBackgroundThemeBrush}" ItemsSource="{Binding SelectedCategories}" SelectionMode="None" IsSwipeEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <CheckBox IsChecked="{Binding Checked}" Content="{Binding Text}" Foreground="{ThemeResource ListBoxForegroundThemeBrush}" />
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Grid x:Name="PlayPanel" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <TextBlock x:Name="TrackTitleLabel" Grid.Row="0" FontSize="25" Text="Theme of Casino Royale" FontWeight="Bold" />
+                <TextBlock x:Name="SongTitleLabel" Grid.Row="1" Text="You know my name" Margin="0,0,0,10" />
+                <TextBlock x:Name="CategoryTitleLabel" Grid.Row="2" Text="Category: Film" Margin="0,0,0,10" />
+                <local:TrackPlayerControl x:Name="TrackPlayer" Grid.Row="3" />
+                <Grid Grid.Row="4" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="FontSize" Value="40" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <Button x:Name="IKnowItButton" Grid.Column="0" Content="I KNOW IT" Click="OnIKnowItButtonClick" />
+                    <Button x:Name="DunnoButton" Grid.Column="1" Content="DUNNO" Click="OnDunnoButtonClick" />
+
+                    <Button x:Name="NextButton" Grid.Column="0" Content="NEXT" Click="OnNextButtonClick" />
+                    <Button x:Name="FinishButton" Grid.Column="1" Content="FINISH" Click="OnFinishButtonClick" />
+                </Grid>
+                <TextBlock x:Name="OutcomeLabel" Grid.Row="5" FontSize="30" HorizontalAlignment="Center" Text="DIDN'T KNOW" Margin="0,0,0,10" />
+                <TextBox x:Name="AnswerTextBox" Grid.Row="5" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

@@ -117,9 +117,13 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\EditRepositoryViewModel.cs" />
+    <Compile Include="ViewModel\FastAnswerViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="View\EditRepositoryPage.xaml.cs">
       <DependentUpon>EditRepositoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FastAnswerPage.xaml.cs">
+      <DependentUpon>FastAnswerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlayQuizPage.xaml.cs">
       <DependentUpon>PlayQuizPage.xaml</DependentUpon>
@@ -152,6 +156,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\EditRepositoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FastAnswerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

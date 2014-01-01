@@ -45,6 +45,20 @@ namespace IntelOrca.TTQ.Metro.View
 			set { SetValue(TrackProperty, value); }
 		}
 
+		public static readonly DependencyProperty AllowSeekProperty =
+			DependencyProperty.Register(
+				"AllowSeek",
+				typeof(bool),
+				typeof(TrackPlayerControl),
+				new PropertyMetadata(false)
+			);
+
+		public bool AllowSeek
+		{
+			get { return (bool)GetValue(AllowSeekProperty); }
+			set { SetValue(AllowSeekProperty, value); }
+		}
+
 		#endregion
 
 		private readonly MediaElement _mediaElement = new MediaElement();
@@ -113,6 +127,27 @@ namespace IntelOrca.TTQ.Metro.View
 		private void NextButtonOnClick(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+		public void PlayFromStart()
+		{
+			_mediaElement.Position = TimeSpan.Zero;
+			_mediaElement.Play();
+		}
+
+		public void Play()
+		{
+			_mediaElement.Play();
+		}
+
+		public void Pause()
+		{
+			_mediaElement.Pause();
+		}
+
+		public void Stop()
+		{
+			_mediaElement.Stop();
 		}
 
 		private void UpdateTimeLabels()
