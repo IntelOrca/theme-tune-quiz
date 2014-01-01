@@ -1,0 +1,659 @@
+﻿<Page
+    x:Class="IntelOrca.TTQ.Metro.View.EditRepositoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IntelOrca.TTQ.Metro.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:IntelOrca.TTQ.Metro.ViewModel"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="SearchBox">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="SearchBox">
+                        <Grid x:Name="SearchBoxGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxPointerOverBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxPointerOverBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxPointerOverTextThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxDisabledBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxDisabledBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxDisabledTextThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchTextBox" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Green" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchSuggestionsPopupBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="FocusedDropDown">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchBoxBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButton" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedTextThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchSuggestionsPopupBorder" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedBorderThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid.Resources>
+                                <Style x:Key="SearchButtonStyle" TargetType="Button">
+                                    <Setter Property="IsTabStop" Value="False" />
+                                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid Background="Transparent">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Normal" />
+                                                            <VisualState x:Name="PointerOver">
+                                                                <Storyboard>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchGlyph" Storyboard.TargetProperty="Foreground">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxButtonPointerOverForegroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonBackground" Storyboard.TargetProperty="Background">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="LightGreen" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Pressed">
+                                                                <Storyboard>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchGlyph" Storyboard.TargetProperty="Foreground">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxFocusedTextThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SearchButtonBackground" Storyboard.TargetProperty="Background">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Green" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Disabled" />
+                                                        </VisualStateGroup>
+                                                        <VisualStateGroup x:Name="FocusStates">
+                                                            <VisualState x:Name="Focused" />
+                                                            <VisualState x:Name="Unfocused" />
+                                                            <VisualState x:Name="PointerFocused" />
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <Grid x:Name="SearchButtonBackground" Background="{TemplateBinding Background}">
+                                                        <TextBlock x:Name="SearchGlyph"
+                                                               AutomationProperties.AccessibilityView="Raw"
+                                                               FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                               Foreground="{TemplateBinding Foreground}"
+                                                               HorizontalAlignment="Center"
+                                                               FontStyle="Normal"
+                                                               Text="&#xE094;"
+                                                               VerticalAlignment="Center" />
+                                                    </Grid>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                                <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+                                    <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
+                                    <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
+                                    <Setter Property="Foreground" Value="{ThemeResource TextBoxForegroundThemeBrush}" />
+                                    <Setter Property="Background" Value="{ThemeResource TextBoxBackgroundThemeBrush}" />
+                                    <Setter Property="BorderBrush" Value="{ThemeResource TextBoxBorderThemeBrush}" />
+                                    <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextSelectionHighlightColorThemeBrush}" />
+                                    <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}" />
+                                    <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                                    <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+                                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+                                    <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+                                    <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Grid>
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup x:Name="CommonStates">
+                                                            <VisualState x:Name="Disabled">
+                                                                <Storyboard>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement"
+                                                                                               Storyboard.TargetProperty="Background">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBoxDisabledBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
+                                                                                               Storyboard.TargetProperty="BorderBrush">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBoxDisabledBorderThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentElement"
+                                                                                               Storyboard.TargetProperty="Foreground">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBoxDisabledForegroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter"
+                                                                                               Storyboard.TargetProperty="Foreground">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextBoxDisabledForegroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames>
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Normal">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetName="BackgroundElement"
+                                                                                 Storyboard.TargetProperty="Opacity"
+                                                                                 Duration="0"
+                                                                                 To="{ThemeResource TextControlBackgroundThemeOpacity}" />
+                                                                    <DoubleAnimation Storyboard.TargetName="BorderElement"
+                                                                                 Storyboard.TargetProperty="Opacity"
+                                                                                 Duration="0"
+                                                                                 To="{ThemeResource TextControlBorderThemeOpacity}" />
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="PointerOver">
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetName="BackgroundElement"
+                                                                                 Storyboard.TargetProperty="Opacity"
+                                                                                 Duration="0"
+                                                                                 To="{ThemeResource TextControlPointerOverBackgroundThemeOpacity}" />
+                                                                    <DoubleAnimation Storyboard.TargetName="BorderElement"
+                                                                                 Storyboard.TargetProperty="Opacity"
+                                                                                 Duration="0"
+                                                                                 To="{ThemeResource TextControlPointerOverBorderThemeOpacity}" />
+                                                                </Storyboard>
+                                                            </VisualState>
+                                                            <VisualState x:Name="Focused" />
+                                                        </VisualStateGroup>
+                                                        <VisualStateGroup x:Name="ButtonStates" />
+                                                    </VisualStateManager.VisualStateGroups>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Border x:Name="BackgroundElement"
+                                                        Grid.Row="1"
+                                                        Background="{TemplateBinding Background}"
+                                                        Margin="{TemplateBinding BorderThickness}"
+                                                        Grid.RowSpan="1"/>
+                                                    <Border x:Name="BorderElement"
+                                                        Grid.Row="1"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Grid.RowSpan="1"/>
+                                                    <ContentPresenter x:Name="HeaderContentPresenter"
+                                                                  Grid.Row="0"
+                                                                  Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"
+                                                                  Margin="0,4,0,4"
+                                                                  Content="{TemplateBinding Header}"
+                                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                                  FontWeight="Semilight" />
+                                                    <ScrollViewer x:Name="ContentElement"
+                                                              Grid.Row="1"
+                                                              HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                              VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                              IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                                              IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                                              IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                                              Margin="{TemplateBinding BorderThickness}"
+                                                              Padding="{TemplateBinding Padding}"
+                                                              IsTabStop="False"
+                                                              AutomationProperties.AccessibilityView="Raw"
+                                                              ZoomMode="Disabled" />
+                                                    <ContentControl x:Name="PlaceholderTextContentPresenter"
+                                                              Grid.Row="1"
+                                                              Foreground="{ThemeResource TextBoxPlaceholderTextThemeBrush}"
+                                                              Margin="{TemplateBinding BorderThickness}"
+                                                              Padding="{TemplateBinding Padding}"
+                                                              IsTabStop="False"
+                                                              Grid.ColumnSpan="2"
+                                                              Content="{TemplateBinding PlaceholderText}"
+                                                              IsHitTestVisible="False" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Grid.Resources>
+                            <Border x:Name="SearchBoxBorder"
+                                Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="SearchTextBox"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         FontFamily="{TemplateBinding FontFamily}"
+                                         FontSize="{TemplateBinding FontSize}"
+                                         FontWeight="{TemplateBinding FontWeight}"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         InputScope="Search"
+                                         MaxLength="2048"
+                                         MinHeight="{ThemeResource SearchBoxTextBoxThemeMinHeight}"
+                                         Padding="{TemplateBinding Padding}"
+                                         PlaceholderText="{TemplateBinding PlaceholderText}"
+                                         Style="{StaticResource SearchTextBoxStyle}"
+                                         TextWrapping="NoWrap"
+                                         VerticalAlignment="Stretch" />
+                                    <Button x:Name="SearchButton"
+                                            AutomationProperties.AccessibilityView="Raw"
+                                            Background="Transparent"
+                                            FontWeight="{ThemeResource SearchBoxButtonThemeFontWeight}"
+                                            Grid.Column="1"
+                                            Style="{StaticResource SearchButtonStyle}" />
+                                </Grid>
+                            </Border>
+                            <Popup x:Name="SearchSuggestionsPopup"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom">
+                                <Border x:Name="SearchSuggestionsPopupBorder"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    MinWidth="{ThemeResource SearchBoxSuggestionPopupThemeMinWidth}">
+                                    <Border.Resources>
+                                        <Style x:Key="SearchSuggestionListViewItemStyle" TargetType="ListViewItem">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="TabNavigation" Value="Local" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListViewItem">
+                                                        <Border x:Name="OuterContainer">
+                                                            <VisualStateManager.VisualStateGroups>
+                                                                <VisualStateGroup x:Name="CommonStates">
+                                                                    <VisualState x:Name="Normal"/>
+                                                                    <VisualState x:Name="PointerOver">
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="PointerOverBorder"
+                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                         Duration="0"
+                                                                                         To="1" />
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="Pressed">
+                                                                        <Storyboard>
+                                                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="PointerOverPressed">
+                                                                        <Storyboard>
+                                                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                                                            <DoubleAnimation Storyboard.TargetName="PointerOverBorder"
+                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                         Duration="0"
+                                                                                         To="1" />
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="Disabled">
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="ListViewItemContentPresenter"
+                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                         Duration="0"
+                                                                                         To="{ThemeResource ListViewItemDisabledThemeOpacity}" />
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                </VisualStateGroup>
+                                                                <VisualStateGroup x:Name="FocusStates">
+                                                                    <VisualState x:Name="Focused">
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisual" />
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="Unfocused"/>
+                                                                    <VisualState x:Name="PointerFocused"/>
+                                                                </VisualStateGroup>
+                                                                <VisualStateGroup x:Name="SelectionStates">
+                                                                    <VisualState x:Name="Unselecting" />
+                                                                    <VisualState x:Name="Unselected" />
+                                                                    <VisualState x:Name="UnselectedPointerOver">
+                                                                        <Storyboard>
+                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListViewItemContentPresenter"
+                                                                                                       Storyboard.TargetProperty="Foreground">
+                                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxButtonForegroundThemeBrush}" />
+                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="UnselectedSwiping" />
+                                                                    <VisualState x:Name="Selecting" />
+                                                                    <VisualState x:Name="Selected">
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="SelectionBackground"
+                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                         Duration="0"
+                                                                                         To="1" />
+                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListViewItemContentPresenter"
+                                                                                                       Storyboard.TargetProperty="Foreground">
+                                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxButtonForegroundThemeBrush}" />
+                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                    <VisualState x:Name="SelectedSwiping" />
+                                                                    <VisualState x:Name="SelectedUnfocused">
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="SelectionBackground"
+                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                         Duration="0"
+                                                                                         To="1" />
+                                                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListViewItemContentPresenter"
+                                                                                                       Storyboard.TargetProperty="Foreground">
+                                                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SearchBoxButtonForegroundThemeBrush}" />
+                                                                            </ObjectAnimationUsingKeyFrames>
+                                                                        </Storyboard>
+                                                                    </VisualState>
+                                                                </VisualStateGroup>
+                                                            </VisualStateManager.VisualStateGroups>
+                                                            <Grid x:Name="ContentContainer">
+                                                                <Rectangle x:Name="PointerOverBorder"
+                                                                       IsHitTestVisible="False"
+                                                                       Opacity="0"
+                                                                       Fill="{ThemeResource SearchBoxButtonBackgroundThemeBrush}" />
+                                                                <Rectangle x:Name="FocusVisual"
+                                                                       IsHitTestVisible="False"
+                                                                       Opacity="0"
+                                                                       StrokeThickness="2"
+                                                                       Stroke="{ThemeResource ListViewItemFocusBorderThemeBrush}" />
+                                                                <Rectangle x:Name="SelectionBackground"
+                                                                       Fill="{ThemeResource SearchBoxButtonBackgroundThemeBrush}"
+                                                                       Opacity="0" />
+                                                                <ContentPresenter x:Name="ListViewItemContentPresenter"
+                                                                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                              Content="{TemplateBinding Content}"
+                                                                              FontFamily="{Binding ElementName=SearchTextBox, Path=FontFamily}"
+                                                                              FontSize="{Binding ElementName=SearchTextBox, Path=FontSize}"
+                                                                              FontWeight="{Binding ElementName=SearchTextBox, Path=FontWeight}"
+                                                                              Foreground="{TemplateBinding Foreground}"
+                                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                            </Grid>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Border.Resources>
+                                    <Grid MaxHeight="{ThemeResource SearchBoxSuggestionPopupThemeMaxHeight}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Border x:Name="IMECandidateListContainer" />
+                                        <Border x:Name="IMECandidateListSeparator" Grid.Row="1" Visibility="Collapsed" BorderThickness="{ThemeResource SearchBoxIMECandidateListSeparatorThemeThickness}" BorderBrush="{ThemeResource SearchBoxIMECandidateListSeparatorThemeBrush}" />
+                                        <ListView x:Name="SearchSuggestionsList"
+                                              Background="{ThemeResource TextBoxBackgroundThemeBrush}"
+                                              Grid.Row="2"
+                                              IsTabStop="False"
+                                              IsItemClickEnabled="true"
+                                              ItemContainerStyle="{StaticResource SearchSuggestionListViewItemStyle}">
+                                            <ListView.Resources>
+                                                <DataTemplate x:Name="HitHighlightedTextBlock">
+                                                    <RichTextBlock x:Name="TextBlock" TextWrapping="Wrap" TextTrimming="WordEllipsis" SelectionHighlightColor="{ThemeResource SearchBoxHitHighlightForegroundThemeBrush}" AutomationProperties.AccessibilityView="Raw">
+                                                        <RichTextBlock.Resources>
+                                                            <DataTemplate x:Name="SelectedHitHighlightedRun">
+                                                                <Run Foreground="{ThemeResource SearchBoxHitHighlightSelectedForegroundThemeBrush}" />
+                                                            </DataTemplate>
+                                                        </RichTextBlock.Resources>
+                                                    </RichTextBlock>
+                                                </DataTemplate>
+                                            </ListView.Resources>
+                                            <ListView.ItemContainerTransitions>
+                                                <TransitionCollection />
+                                            </ListView.ItemContainerTransitions>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <!-- QuerySuggestionTemplate is presented for suggestions of Kind SearchSuggestionKind_Query -->
+                                                        <ContentControl x:Name="QuerySuggestionTemplate"
+                                                                    Margin="{ThemeResource SearchBoxQuerySuggestionThemeMargin}"
+                                                                    Typography.DiscretionaryLigatures="False"
+                                                                    VerticalAlignment="Center"
+                                                                    Visibility="Collapsed" />
+
+                                                        <!-- ResultSuggestionTemplate is presented for suggestions of Kind SearchSuggestionKind_Result -->
+                                                        <Grid x:Name="ResultSuggestionTemplate"
+                                                          Margin="{ThemeResource SearchBoxResultSuggestionThemeMargin}"
+                                                          Typography.DiscretionaryLigatures="False"
+                                                          Visibility="Collapsed" >
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                                <RowDefinition />
+                                                            </Grid.RowDefinitions>
+                                                            <Image x:Name="ResultSuggestionImage"
+                                                               Grid.RowSpan="2"
+                                                               Width="{ThemeResource SearchBoxResultSuggestionImageThemeWidth}"
+                                                               Height="{ThemeResource SearchBoxResultSuggestionImageThemeHeight}"
+                                                               Margin="{ThemeResource SearchBoxSuggestionSubcomponentThemeMargin}"/>
+                                                            <ContentControl x:Name="ResultSuggestionText"
+                                                                        Grid.Column="1"
+                                                                        VerticalAlignment="Center" />
+                                                            <ContentControl x:Name="ResultSuggestionDetailText"
+                                                                        Grid.Column="1"
+                                                                        Grid.Row="1"
+                                                                        VerticalAlignment="Center" />
+                                                        </Grid>
+
+                                                        <!-- SeparatorSuggestionTemplate is presented for suggestions of Kind SearchSuggestionKind_Separator -->
+                                                        <Grid x:Name="SeparatorSuggestionTemplate"
+                                                          Margin="{ThemeResource SearchBoxSeparatorSuggestionThemeMargin}"
+                                                          Typography.DiscretionaryLigatures="False"
+                                                          Visibility="Collapsed">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock x:Name="SeparatorSuggestionText"
+                                                                   Margin="{ThemeResource SearchBoxSuggestionSubcomponentThemeMargin}"
+                                                                   TextTrimming="WordEllipsis"
+                                                                   VerticalAlignment="Center" />
+                                                            <Border Grid.Column="1"
+                                                                BorderBrush="{ThemeResource SearchBoxSeparatorSuggestionForegroundThemeBrush}"
+                                                                BorderThickness="0,1,0,0"
+                                                                VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Page.DataContext>
+        <ViewModel:EditRepositoryViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Border Padding="20">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Content="Back" Style="{StaticResource NavigationBackButtonNormalStyle}" Margin="0,0,20,0" VerticalAlignment="Stretch" />
+                <TextBlock Grid.Column="1" Text="Edit Track Repository" />
+
+                <SearchBox Grid.Column="3" QuerySubmitted="OnSearchBoxQuerySubmitted" SearchHistoryEnabled="False" />
+            </Grid>
+        </Border>
+
+        <ListView x:Name="TrackListView" Grid.Row="1" Padding="20" Background="{ThemeResource ListBoxBackgroundThemeBrush}" ItemsSource="{Binding Tracks}" SelectedItem="{Binding SelectedTrack, Mode=TwoWay}">
+            <ListView.Template>
+                <ControlTemplate TargetType="ListView">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{ThemeResource ListBoxForegroundThemeBrush}" />
+                                </Style>
+                            </Grid.Resources>
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" FontSize="16" Text="Filename" />
+                                <TextBlock Grid.Column="1" FontSize="16" Text="Category" />
+                                <TextBlock Grid.Column="2" FontSize="16" Text="Title" />
+                                <TextBlock Grid.Column="3" FontSize="16" Text="Song" />
+                                <TextBlock Grid.Column="4" FontSize="16" Text="Genre" />
+                                <TextBlock Grid.Column="5" FontSize="16" Text="Theme" />
+                                <TextBlock Grid.Column="6" FontSize="16" Text="Track Length" />
+                                <TextBlock Grid.Column="7" FontSize="16" Text="Tactical Start" />
+                                <TextBlock Grid.Column="8" FontSize="16" Text="Tactical Duration" />
+                                <TextBlock Grid.Column="9" FontSize="16" Text="CloseAnswer" />
+                            </Grid>
+
+                            <ScrollViewer Grid.Row="1" x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}" FooterTemplate="{TemplateBinding FooterTemplate}" Footer="{TemplateBinding Footer}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" />
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ListView.Template>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{ThemeResource ListBoxForegroundThemeBrush}" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" FontSize="16" Text="{Binding Filename}" />
+                        <TextBlock Grid.Column="1" FontSize="16" Text="{Binding Category}" />
+                        <TextBlock Grid.Column="2" FontSize="16" Text="{Binding Title}" />
+                        <TextBlock Grid.Column="3" FontSize="16" Text="{Binding Song}" />
+                        <TextBlock Grid.Column="4" FontSize="16" Text="{Binding Genre}" />
+                        <TextBlock Grid.Column="5" FontSize="16" Text="{Binding IsTheme}" />
+                        <TextBlock Grid.Column="6" FontSize="16" Text="{Binding TrackLength}" />
+                        <TextBlock Grid.Column="7" FontSize="16" Text="{Binding TacticalStart}" />
+                        <TextBlock Grid.Column="8" FontSize="16" Text="{Binding TacticalDuration}" />
+                        <TextBlock Grid.Column="9" FontSize="16" Text="{Binding CloseAnswer}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Border Grid.Row="2" Padding="20" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <local:TrackPlayerControl x:Name="TrackPlayer" Track="{Binding SelectedTrack}" />
+        </Border>
+    </Grid>
+</Page>
